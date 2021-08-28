@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace EvolutionOfCreaturesBackend.App
+namespace EvolutionOfCreatures.App
 {
     public class Program
     {

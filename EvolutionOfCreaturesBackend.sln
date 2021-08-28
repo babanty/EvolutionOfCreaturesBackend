@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31321.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionOfCreaturesBackend.App", "EvolutionOfCreaturesBackend\EvolutionOfCreaturesBackend.App.csproj", "{F8D88505-D883-4265-B6B0-0D17B041D9D7}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{AF02F5FC-FC06-44A4-8CF8-CF752D69DFE5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.HostExtensions", "Infrastructure.HostExtensions\Infrastructure.HostExtensions.csproj", "{E12CFFA6-318B-4E28-81BE-4AE663500253}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Tools", "Infrastructure.Tools\Infrastructure.Tools.csproj", "{42FAC57E-758B-4341-B8C5-1F75FB5523DC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EvolutionOfCreatures.App", "EvolutionOfCreatures.App\EvolutionOfCreatures.App.csproj", "{23E4F331-849F-45BB-9462-DC2C65594D95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F8D88505-D883-4265-B6B0-0D17B041D9D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F8D88505-D883-4265-B6B0-0D17B041D9D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F8D88505-D883-4265-B6B0-0D17B041D9D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F8D88505-D883-4265-B6B0-0D17B041D9D7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E12CFFA6-318B-4E28-81BE-4AE663500253}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E12CFFA6-318B-4E28-81BE-4AE663500253}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E12CFFA6-318B-4E28-81BE-4AE663500253}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -29,6 +25,10 @@ Global
 		{42FAC57E-758B-4341-B8C5-1F75FB5523DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42FAC57E-758B-4341-B8C5-1F75FB5523DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42FAC57E-758B-4341-B8C5-1F75FB5523DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23E4F331-849F-45BB-9462-DC2C65594D95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23E4F331-849F-45BB-9462-DC2C65594D95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23E4F331-849F-45BB-9462-DC2C65594D95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23E4F331-849F-45BB-9462-DC2C65594D95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

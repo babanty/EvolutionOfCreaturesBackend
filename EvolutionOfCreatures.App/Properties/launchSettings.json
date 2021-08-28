@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "EvolutionOfCreaturesBackend": {
+    "EvolutionOfCreatures": {
       "commandName": "Project",
       "launchBrowser": false,
       "launchUrl": "",

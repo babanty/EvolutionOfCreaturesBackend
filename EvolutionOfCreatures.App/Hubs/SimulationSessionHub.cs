@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 
 
-namespace EvolutionOfCreaturesBackend.App.Hubs
+namespace EvolutionOfCreatures.App.Hubs
 {
     public class SimulationSessionHub : Hub
     {

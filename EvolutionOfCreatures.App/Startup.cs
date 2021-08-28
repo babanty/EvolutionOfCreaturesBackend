@@ -6,9 +6,9 @@ using Microsoft.Extensions.Hosting;
 using System;
 using Microsoft.Extensions.Logging;
 using Infrastructure.Tools.Logging;
-using EvolutionOfCreaturesBackend.App.Hubs;
+using EvolutionOfCreatures.App.Hubs;
 
-namespace EvolutionOfCreaturesBackend.App
+namespace EvolutionOfCreatures.App
 {
     public class Startup
     {
