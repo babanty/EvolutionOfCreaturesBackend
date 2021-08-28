@@ -1,17 +1,16 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Infrastructure.Tools.Logging;
+using EvolutionOfCreatures.App.Hubs;
+using EvolutionOfCreatures.Db;
+using Infrastructure.HostExtensions.ServiceCollectionExtensions.DatabaseExtension;
 
-namespace EvolutionOfCreaturesBackend
+namespace EvolutionOfCreatures.App
 {
     public class Startup
     {
@@ -26,11 +25,26 @@ namespace EvolutionOfCreaturesBackend
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSignalR(hubOptions =>
+            {
+                hubOptions.EnableDetailedErrors = true;
+                hubOptions.MaximumReceiveMessageSize = 524288; // 512KB
+            }).AddJsonProtocol();
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddDbLogger("Logging:DbLogger");
+
+            services.AddDb<EvolutionOfCreaturesContext>(Configuration.GetSection("EvolutionOfCreaturesContext"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app,
+                              IWebHostEnvironment env,
+                              ILoggerFactory loggerFactory,
+                              DbLoggerOptions dbLoggerOptions)
         {
+            loggerFactory.AddDbLogger(dbLoggerOptions);
+                
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -45,6 +59,7 @@ namespace EvolutionOfCreaturesBackend
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<SimulationSessionHub>("/simulation");
             });
         }
     }
