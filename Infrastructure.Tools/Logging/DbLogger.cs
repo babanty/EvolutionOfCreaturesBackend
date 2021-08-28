@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Infrastructure.Tools.Db;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Data;
@@ -6,6 +7,7 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+
 // Nuget:
 // Dapper
 // Microsoft.Extensions.Logging
@@ -33,7 +35,7 @@ namespace Infrastructure.Tools.Logging
             this.AppId = AppId;
             this.ConnectionString = ConnectionString;
             this.FilePathForSosLogs = FilePathForSosLogs;
-            CheckTableExistence();
+            CheckDbAndTableExistence();
         }
 
         public IDisposable BeginScope<TState>(TState state)
@@ -184,19 +186,26 @@ namespace Infrastructure.Tools.Logging
 
 
         /// <summary> Checks and creates table </summary>
-        private void CheckTableExistence()
+        private void CheckDbAndTableExistence()
         {
             try
             {
-                using (IDbConnection db = new SqlConnection(ConnectionString))
-                {
-                    string isTableExistSqlQuery = $"IF (OBJECT_ID('{TableName}', 'U') IS NOT NULL) SELECT 1 ELSE SELECT 0";
-                    int isTableExist = db.Query<int>(isTableExistSqlQuery).FirstOrDefault();
+                if (!MsSqlDbManager.CheckDbExistence(ConnectionString))
+                    MsSqlDbManager.CreateDb(ConnectionString);
 
-                    if (isTableExist == 0)
-                    {
-                        string createTableQuery = @$"
-                            CREATE TABLE [dbo].[{TableName}](
+                MsSqlDbManager.CheckTableExistenceAndCreate(ConnectionString, TableName, GetCreateLogTableQuery());
+            }
+            catch (Exception e)
+            {
+                WriteTextSos(null, e);
+            }
+        }
+
+
+        private static string GetCreateLogTableQuery()
+        {
+            return @$"
+                        CREATE TABLE [dbo].[{TableName}](
                             	[Id] [int]  PRIMARY KEY IDENTITY,
                             	[AppName] [nvarchar](200) NOT NULL,
                             	[AppId] [nvarchar](100) NULL,
@@ -210,18 +219,15 @@ namespace Infrastructure.Tools.Logging
                             	[EventName] [nvarchar](max) NULL,
                             	[Category] [nvarchar](max) NULL,
                                 [InnerException] [nvarchar](max) NULL
-                            )";
+                        )
 
-                        db.Execute(createTableQuery);
-                    }
-
-                }
-            }
-            catch (Exception e)
-            {
-                WriteTextSos(null, e);
-            }
+                        SET ANSI_PADDING ON SET 
+                        ANSI_PADDING ON
+                        
+                        CREATE NONCLUSTERED INDEX [_dta_index_Logs_5_1093578934__K4_K5_K10] 
+                        ON [dbo].[{TableName}] ( [UtcTimestamp] ASC, [Level] ASC, [EventId] ASC)
+                        WITH (SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF) ON [PRIMARY]
+            ";
         }
-
     }
 }

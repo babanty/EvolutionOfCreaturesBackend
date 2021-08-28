@@ -19,6 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EvolutionOfCreatures.Db\EvolutionOfCreatures.Db.csproj" />
+    <ProjectReference Include="..\EvolutionOfCreatures.Logic\EvolutionOfCreatures.Logic.csproj" />
     <ProjectReference Include="..\Infrastructure.HostExtensions\Infrastructure.HostExtensions.csproj" />
     <ProjectReference Include="..\Infrastructure.Tools\Infrastructure.Tools.csproj" />
   </ItemGroup>

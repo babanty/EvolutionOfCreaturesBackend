@@ -7,6 +7,8 @@ using System;
 using Microsoft.Extensions.Logging;
 using Infrastructure.Tools.Logging;
 using EvolutionOfCreatures.App.Hubs;
+using EvolutionOfCreatures.Db;
+using Infrastructure.HostExtensions.ServiceCollectionExtensions.DatabaseExtension;
 
 namespace EvolutionOfCreatures.App
 {
@@ -31,6 +33,8 @@ namespace EvolutionOfCreatures.App
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddDbLogger("Logging:DbLogger");
+
+            services.AddDb<EvolutionOfCreaturesContext>(Configuration.GetSection("EvolutionOfCreaturesContext"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
