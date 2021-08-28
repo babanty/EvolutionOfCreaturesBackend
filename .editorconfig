@@ -1,0 +1,14 @@
+﻿[*.cs]
+
+
+# CA2007: Попробуйте вызвать ConfigureAwait для ожидаемой задачи
+dotnet_diagnostic.CA2007.severity = none
+
+# EF1001: Internal EF Core API usage.
+dotnet_diagnostic.EF1001.severity = none
+
+# CA1303: Не передавать литералы в качестве локализованных параметров
+dotnet_diagnostic.CA1303.severity = none
+
+# CA1062: Проверить аргументы или открытые методы
+dotnet_diagnostic.CA1062.severity = silent
