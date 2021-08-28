@@ -26,7 +26,7 @@ namespace EvolutionOfCreatures.App
             services.AddSignalR(hubOptions =>
             {
                 hubOptions.EnableDetailedErrors = true;
-                hubOptions.MaximumReceiveMessageSize = 524288; // в байтах = 512KB
+                hubOptions.MaximumReceiveMessageSize = 524288; // 512KB
             }).AddJsonProtocol();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
