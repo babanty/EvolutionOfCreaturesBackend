@@ -100,7 +100,7 @@ namespace EvolutionOfCreatures.Db.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ClientsSettings");
+                    b.ToTable("PlayerSettings");
                 });
 
             modelBuilder.Entity("EvolutionOfCreatures.Db.Entities.PlayerStatistics", b =>
