@@ -8,10 +8,14 @@ namespace EvolutionOfCreatures.Db.Entities
     {
         public Guid Id { get; set; }
 
+        
         public DateTime CreatedAt { get; set; }
 
-        public ICollection<string> Transactions { get; set; }
+        
+        /// <summary> Id транзакций покупок </summary>
+        public ICollection<string> TransactionIds { get; set; }
 
+        
         public Player Player { get; set; }
     }
 }
