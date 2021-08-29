@@ -75,6 +75,7 @@ namespace EvolutionOfCreatures.App
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", $"{AppDomain.CurrentDomain.FriendlyName} API");
+                c.RoutePrefix = string.Empty;
             });
 
             loggerFactory.AddDbLogger(dbLoggerOptions);
