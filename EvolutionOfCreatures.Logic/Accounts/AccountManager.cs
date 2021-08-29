@@ -3,8 +3,11 @@ using EvolutionOfCreatures.Db;
 using EvolutionOfCreatures.Db.Entities;
 using EvolutionOfCreatures.Logic.Players;
 using FluentValidation;
+using Infrastructure.Tools.Exceptions;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace EvolutionOfCreatures.Logic.Accounts
@@ -24,6 +27,14 @@ namespace EvolutionOfCreatures.Logic.Accounts
             _playerManager = playerManager;
             _dbContext = dbContext;
             _validatorCreateRequest = validatorCreateRequest;
+        }
+
+
+        public async Task<AccountDto> Get(Guid id)
+        {
+            var entity = await GetFullQuery().FirstOrDefaultAsync(a => a.Id == id) ?? throw new NotFoundException(nameof(AccountDto));
+            
+            return _mapper.Map<AccountDto>(entity);
         }
 
 
@@ -49,6 +60,18 @@ namespace EvolutionOfCreatures.Logic.Accounts
             _dbContext.Add(entity);
 
             return _mapper.Map<AccountDto>(entity);
+        }
+
+
+        private IQueryable<Account> GetFullQuery()
+        {
+            return _dbContext.Accounts.Include(a => a.Player)
+                                      .ThenInclude(p => p.PlayerProgress)
+                                      .Include(a => a.Player)
+                                      .ThenInclude(p => p.PlayerSettings)
+                                      .Include(a => a.Player)
+                                      .ThenInclude(p => p.PlayerStatistics)
+                                      .AsQueryable();
         }
     }
 }
