@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EvolutionOfCreatures.Db.Migrations
 {
     [DbContext(typeof(EvolutionOfCreaturesContext))]
-    [Migration("20210828115116_InitialCreate")]
+    [Migration("20210829111002_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,12 +50,6 @@ namespace EvolutionOfCreatures.Db.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("IndividualSettingsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("PlayerStatisticsId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
@@ -63,10 +57,6 @@ namespace EvolutionOfCreatures.Db.Migrations
 
                     b.HasIndex("AccountId")
                         .IsUnique();
-
-                    b.HasIndex("IndividualSettingsId");
-
-                    b.HasIndex("PlayerStatisticsId");
 
                     b.ToTable("Players");
                 });
@@ -88,6 +78,9 @@ namespace EvolutionOfCreatures.Db.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PlayerId")
+                        .IsUnique();
+
                     b.ToTable("PlayersProgress");
                 });
 
@@ -100,7 +93,13 @@ namespace EvolutionOfCreatures.Db.Migrations
                     b.Property<int>("LogLevel")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("PlayerId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("PlayerId")
+                        .IsUnique();
 
                     b.ToTable("PlayerSettings");
                 });
@@ -123,10 +122,16 @@ namespace EvolutionOfCreatures.Db.Migrations
                     b.Property<int>("OnlineWinCount")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("PlayerId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("Version")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PlayerId")
+                        .IsUnique();
 
                     b.ToTable("PlayersStatistics");
                 });
@@ -138,23 +143,47 @@ namespace EvolutionOfCreatures.Db.Migrations
                         .HasForeignKey("EvolutionOfCreatures.Db.Entities.Player", "AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
 
-                    b.HasOne("EvolutionOfCreatures.Db.Entities.PlayerSettings", "IndividualSettings")
-                        .WithMany()
-                        .HasForeignKey("IndividualSettingsId");
+            modelBuilder.Entity("EvolutionOfCreatures.Db.Entities.PlayerProgress", b =>
+                {
+                    b.HasOne("EvolutionOfCreatures.Db.Entities.Player", null)
+                        .WithOne("PlayerProgress")
+                        .HasForeignKey("EvolutionOfCreatures.Db.Entities.PlayerProgress", "PlayerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
-                    b.HasOne("EvolutionOfCreatures.Db.Entities.PlayerStatistics", "PlayerStatistics")
-                        .WithMany()
-                        .HasForeignKey("PlayerStatisticsId");
+            modelBuilder.Entity("EvolutionOfCreatures.Db.Entities.PlayerSettings", b =>
+                {
+                    b.HasOne("EvolutionOfCreatures.Db.Entities.Player", null)
+                        .WithOne("PlayerSettings")
+                        .HasForeignKey("EvolutionOfCreatures.Db.Entities.PlayerSettings", "PlayerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
-                    b.Navigation("IndividualSettings");
-
-                    b.Navigation("PlayerStatistics");
+            modelBuilder.Entity("EvolutionOfCreatures.Db.Entities.PlayerStatistics", b =>
+                {
+                    b.HasOne("EvolutionOfCreatures.Db.Entities.Player", null)
+                        .WithOne("PlayerStatistics")
+                        .HasForeignKey("EvolutionOfCreatures.Db.Entities.PlayerStatistics", "PlayerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("EvolutionOfCreatures.Db.Entities.Account", b =>
                 {
                     b.Navigation("Player");
+                });
+
+            modelBuilder.Entity("EvolutionOfCreatures.Db.Entities.Player", b =>
+                {
+                    b.Navigation("PlayerProgress");
+
+                    b.Navigation("PlayerSettings");
+
+                    b.Navigation("PlayerStatistics");
                 });
 #pragma warning restore 612, 618
         }

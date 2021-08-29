@@ -21,15 +21,42 @@ namespace EvolutionOfCreatures.Db.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Players",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Rating = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Players", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Players_Accounts_AccountId",
+                        column: x => x.AccountId,
+                        principalTable: "Accounts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PlayerSettings",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PlayerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     LogLevel = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PlayerSettings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PlayerSettings_Players_PlayerId",
+                        column: x => x.PlayerId,
+                        principalTable: "Players",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -44,6 +71,12 @@ namespace EvolutionOfCreatures.Db.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PlayersProgress", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PlayersProgress_Players_PlayerId",
+                        column: x => x.PlayerId,
+                        principalTable: "Players",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -51,6 +84,7 @@ namespace EvolutionOfCreatures.Db.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PlayerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Version = table.Column<int>(type: "int", nullable: false),
                     OfflineGameCount = table.Column<int>(type: "int", nullable: false),
                     OnlineGameCount = table.Column<int>(type: "int", nullable: false),
@@ -60,40 +94,12 @@ namespace EvolutionOfCreatures.Db.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PlayersStatistics", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Players",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    AccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Rating = table.Column<int>(type: "int", nullable: false),
-                    IndividualSettingsId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    PlayerStatisticsId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Players", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Players_Accounts_AccountId",
-                        column: x => x.AccountId,
-                        principalTable: "Accounts",
+                        name: "FK_PlayersStatistics_Players_PlayerId",
+                        column: x => x.PlayerId,
+                        principalTable: "Players",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Players_PlayerSettings_IndividualSettingsId",
-                        column: x => x.IndividualSettingsId,
-                        principalTable: "PlayerSettings",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Players_PlayersStatistics_PlayerStatisticsId",
-                        column: x => x.PlayerStatisticsId,
-                        principalTable: "PlayersStatistics",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -103,32 +109,40 @@ namespace EvolutionOfCreatures.Db.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Players_IndividualSettingsId",
-                table: "Players",
-                column: "IndividualSettingsId");
+                name: "IX_PlayerSettings_PlayerId",
+                table: "PlayerSettings",
+                column: "PlayerId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Players_PlayerStatisticsId",
-                table: "Players",
-                column: "PlayerStatisticsId");
+                name: "IX_PlayersProgress_PlayerId",
+                table: "PlayersProgress",
+                column: "PlayerId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlayersStatistics_PlayerId",
+                table: "PlayersStatistics",
+                column: "PlayerId",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Players");
+                name: "PlayerSettings");
 
             migrationBuilder.DropTable(
                 name: "PlayersProgress");
 
             migrationBuilder.DropTable(
-                name: "Accounts");
-
-            migrationBuilder.DropTable(
-                name: "PlayerSettings");
-
-            migrationBuilder.DropTable(
                 name: "PlayersStatistics");
+
+            migrationBuilder.DropTable(
+                name: "Players");
+
+            migrationBuilder.DropTable(
+                name: "Accounts");
         }
     }
 }
