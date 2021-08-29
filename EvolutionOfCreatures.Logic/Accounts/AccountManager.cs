@@ -51,15 +51,17 @@ namespace EvolutionOfCreatures.Logic.Accounts
                 TransactionIds = new List<string>()
             };
 
+            _dbContext.Add(entity);
             await _dbContext.SaveChangesAsync();
 
-            request.Player.AccountId = entity.Id;
-
-            var player = await _playerManager.CreateEntity(request.Player);
+            var player = await _playerManager.CreateEntity(new CreatePlayerRequest()
+            {
+                AccountId = entity.Id,
+                PlayerName = request.Name
+            });
 
             entity.Player = player;
 
-            _dbContext.Add(entity);
             await _dbContext.SaveChangesAsync();
 
             return _mapper.Map<AccountDto>(entity);

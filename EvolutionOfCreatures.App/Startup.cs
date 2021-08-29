@@ -13,7 +13,7 @@ using EvolutionOfCreatures.Logic.Accounts;
 using EvolutionOfCreatures.Logic.Players;
 using FluentValidation;
 using Infrastructure.HostExtensions.Filters;
-
+using System.Linq;
 
 namespace EvolutionOfCreatures.App
 {
@@ -45,6 +45,12 @@ namespace EvolutionOfCreatures.App
             }).AddJsonProtocol();
 
 
+            services.AddSwaggerGen(c =>
+            {
+                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+            });
+
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddDbLogger("Logging:DbLogger");
 
@@ -65,6 +71,12 @@ namespace EvolutionOfCreatures.App
                               ILoggerFactory loggerFactory,
                               DbLoggerOptions dbLoggerOptions)
         {
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", $"{AppDomain.CurrentDomain.FriendlyName} API");
+            });
+
             loggerFactory.AddDbLogger(dbLoggerOptions);
                 
             if (env.IsDevelopment())

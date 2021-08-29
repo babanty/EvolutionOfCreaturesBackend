@@ -18,7 +18,7 @@ namespace EvolutionOfCreatures.App.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPost, Consumes("application/json")]
         public async Task<AccountDto> Create(CreateAccountRequest request) => await _entityManager.Create(request);
 
 
