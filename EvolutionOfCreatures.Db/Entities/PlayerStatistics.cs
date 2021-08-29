@@ -8,6 +8,9 @@ namespace EvolutionOfCreatures.Db.Entities
         public Guid Id { get; set; }
 
 
+        public Guid PlayerId { get; set; }
+
+
         public int Version { get; set; }
 
 

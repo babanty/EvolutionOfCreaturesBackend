@@ -14,8 +14,10 @@ namespace EvolutionOfCreatures.Db.Entities
 
         public int Rating { get; set; }
 
-        public PlayerSettings IndividualSettings { get; set; }
+        public PlayerSettings PlayerSettings { get; set; }
 
         public PlayerStatistics PlayerStatistics { get; set; }
+
+        public PlayerProgress PlayerProgress { get; set; }
     }
 }
