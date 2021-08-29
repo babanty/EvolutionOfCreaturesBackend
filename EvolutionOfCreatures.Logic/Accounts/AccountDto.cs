@@ -1,4 +1,4 @@
-﻿using EvolutionOfCreatures.Logic.Players;
+﻿using EvolutionOfCreatures.Logic.Players.Dtos;
 using System;
 
 namespace EvolutionOfCreatures.Logic.Accounts
