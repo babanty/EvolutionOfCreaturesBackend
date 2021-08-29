@@ -21,11 +21,8 @@ namespace EvolutionOfCreatures.Logic.Accounts.Tests
         public async Task Create__ValidCreateRequest__ResultOk()
         {
             // Arrange
-            var createAccountRequest = new CreateAccountRequest()
-            {
-                Player = new CreatePlayerRequest() { PlayerName = "stub" }
-            };
-            var entityManager = GetNewAccountManager(createAccountRequest.Player);
+            var createAccountRequest = new CreateAccountRequest() { Name = "stub" };
+            var entityManager = GetNewAccountManager();
 
             // Act
             var newEntity = await entityManager.Create(createAccountRequest);
@@ -40,24 +37,12 @@ namespace EvolutionOfCreatures.Logic.Accounts.Tests
         }
 
 
-        private IAccountManager GetNewAccountManager(CreatePlayerRequest createPlayerRequest)
-        {
-            return new AccountManager(GetPlayerManagerMock(createPlayerRequest),
-                                      GetNewDb(),
-                                      new CreateAccountRequestValidator(),
-                                      GetMapper());
-        }
-
-
         [TestMethod()]
-        public async Task Create__InvalidCreateRequestWithoutPlayer__ValidationException()
+        public async Task Create__InvalidCreateRequestWithoutName__ValidationException()
         {
             // Arrange
-            var createAccountRequest = new CreateAccountRequest()
-            {
-                Player = null
-            };
-            var entityManager = GetNewAccountManager(createAccountRequest.Player);
+            var createAccountRequest = new CreateAccountRequest() { Name = null };
+            var entityManager = GetNewAccountManager();
 
             // Act
             async Task action() => await entityManager.Create(createAccountRequest);
@@ -72,7 +57,7 @@ namespace EvolutionOfCreatures.Logic.Accounts.Tests
         {
             // Arrange
             CreateAccountRequest createAccountRequest = null;
-            var entityManager = GetNewAccountManager(null);
+            var entityManager = GetNewAccountManager();
 
             // Act
             async Task action() => await entityManager.Create(createAccountRequest);
@@ -82,31 +67,31 @@ namespace EvolutionOfCreatures.Logic.Accounts.Tests
         }
 
 
+        private IAccountManager GetNewAccountManager()
+        {
+            return new AccountManager(GetPlayerManagerMock(),
+                                      GetNewDb(),
+                                      new CreateAccountRequestValidator(),
+                                      GetMapper());
+        }
+
+
         private EvolutionOfCreaturesContext GetNewDb() =>
             new EvolutionOfCreaturesContext(DbContextUtilities.GetInMemoryDbOptions<EvolutionOfCreaturesContext>());
 
 
-        private IPlayerManager GetPlayerManagerMock(CreatePlayerRequest createPlayerRequest)
+        private IPlayerManager GetPlayerManagerMock()
         {
             var mock = new Mock<IPlayerManager>();
 
-            if (createPlayerRequest is null)
-            {
-                mock.Setup(a => a.CreateEntity(null))
-                                 .Returns(Task.FromResult((Player)null));
-            }
-            else
-            {
-                mock.Setup(a => a.CreateEntity(createPlayerRequest))
+            mock.Setup(a => a.CreateEntity(It.IsAny<CreatePlayerRequest>()))
                                  .Returns(Task.FromResult(
                                              new Player()
                                              {
-                                                 AccountId = createPlayerRequest.AccountId,
                                                  PlayerProgress = new PlayerProgress(),
                                                  PlayerSettings = new PlayerSettings(),
                                                  PlayerStatistics = new PlayerStatistics()
                                              }));
-            }
 
             return mock.Object;
         }

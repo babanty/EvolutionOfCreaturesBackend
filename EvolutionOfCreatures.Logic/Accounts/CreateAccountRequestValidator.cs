@@ -7,9 +7,9 @@ namespace EvolutionOfCreatures.Logic.Accounts
     {
         public CreateAccountRequestValidator()
         {
-            RuleFor(p => p.Player)
+            RuleFor(p => p.Name)
                 .NotNull()
-                .WithMessage("Player can't be null");
+                .WithMessage($"Account name can't be null");
         }
     }
 }
