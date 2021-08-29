@@ -6,8 +6,6 @@ namespace EvolutionOfCreatures.Logic.Players.Dtos
     {
         public Guid Id { get; set; }
 
-        public Guid AccountId { get; set; }
-
         public int Rating { get; set; }
 
         public PlayerSettingsDto PlayerSettings { get; set; }
