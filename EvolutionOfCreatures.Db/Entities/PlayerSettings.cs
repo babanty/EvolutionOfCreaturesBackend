@@ -17,10 +17,15 @@ namespace EvolutionOfCreatures.Db.Entities
 
 
         /// <summary> Запасные урлы по которым подключаться к беку </summary>
-        public string[] FallbackUrls => new string[0];
+        public string[] FallbackUrls => DefaultFallbackUrls;
 
 
         /// <summary> Если текущая версия API (зашитая константа GameWebClient.ApiVersion) меньше чем указанная тут, то потребует обновления </summary>
-        public int MinApiVersion => 1;
+        public int MinApiVersion => MinApiVersionForEveryone;
+
+
+        private const int MinApiVersionForEveryone = 1;
+
+        private readonly string[] DefaultFallbackUrls = new string[0];
     }
 }
