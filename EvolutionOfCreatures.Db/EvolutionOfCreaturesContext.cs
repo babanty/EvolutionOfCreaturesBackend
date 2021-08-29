@@ -10,7 +10,7 @@ namespace EvolutionOfCreatures.Db
 
         public DbSet<Player> Players { get; set; }
 
-        public DbSet<PlayerSettings> ClientsSettings { get; set; }
+        public DbSet<PlayerSettings> PlayerSettings { get; set; }
 
         public DbSet<PlayerProgress> PlayersProgress { get; set; }
 

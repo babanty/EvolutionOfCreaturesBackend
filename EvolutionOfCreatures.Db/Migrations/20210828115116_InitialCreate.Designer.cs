@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EvolutionOfCreatures.Db.Migrations
 {
     [DbContext(typeof(EvolutionOfCreaturesContext))]
-    [Migration("20210828114031_InitialCreate")]
+    [Migration("20210828115116_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -102,7 +102,7 @@ namespace EvolutionOfCreatures.Db.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ClientsSettings");
+                    b.ToTable("PlayerSettings");
                 });
 
             modelBuilder.Entity("EvolutionOfCreatures.Db.Entities.PlayerStatistics", b =>

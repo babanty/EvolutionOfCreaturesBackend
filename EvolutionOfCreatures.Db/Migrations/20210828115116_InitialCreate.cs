@@ -21,7 +21,7 @@ namespace EvolutionOfCreatures.Db.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ClientsSettings",
+                name: "PlayerSettings",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -29,7 +29,7 @@ namespace EvolutionOfCreatures.Db.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ClientsSettings", x => x.Id);
+                    table.PrimaryKey("PK_PlayerSettings", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -83,9 +83,9 @@ namespace EvolutionOfCreatures.Db.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Players_ClientsSettings_IndividualSettingsId",
+                        name: "FK_Players_PlayerSettings_IndividualSettingsId",
                         column: x => x.IndividualSettingsId,
-                        principalTable: "ClientsSettings",
+                        principalTable: "PlayerSettings",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -125,7 +125,7 @@ namespace EvolutionOfCreatures.Db.Migrations
                 name: "Accounts");
 
             migrationBuilder.DropTable(
-                name: "ClientsSettings");
+                name: "PlayerSettings");
 
             migrationBuilder.DropTable(
                 name: "PlayersStatistics");

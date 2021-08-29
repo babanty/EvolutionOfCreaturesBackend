@@ -9,6 +9,9 @@ namespace EvolutionOfCreatures.Db.Entities
         public Guid Id { get; set; }
 
 
+        public Guid PlayerId { get; set; }
+
+
         /// <summary> Уровень ошибок которые отправлять на сервер с устройств игрока </summary>
         public PlayerLogLevel LogLevel { get; set; }
 
