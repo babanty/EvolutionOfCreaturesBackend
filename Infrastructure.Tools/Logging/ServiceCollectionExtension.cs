@@ -6,7 +6,7 @@ namespace Infrastructure.Tools.Logging
 {
     public static class ServiceCollectionExtension
     {
-        /// <summary> Добавить логирование в БД. Не забудьте так же вызвать ILoggerFactory AddDbLogger в Configure </summary>
+        /// <summary> Add logging to the database. Remember to also call ILoggerFactory AddDbLogger in Configure </summary>
         /// <param name="configurationSectionPath"> полный путь до секции где лежат конфиги схеме DbLoggerOptions.cs </param>
         public static IServiceCollection AddDbLogger(this IServiceCollection services, string configurationSectionPath)
         {
@@ -25,7 +25,7 @@ namespace Infrastructure.Tools.Logging
         }
 
 
-        /// <summary> Добавить логирование в БД. Не забудьте так же вызвать IServiceCollection AddDbLogger в ConfigureServices </summary>
+        /// <summary> Add logging to the database. Don't forget to call IServiceCollection AddDbLogger in ConfigureServices as well. </summary>
         public static ILoggerFactory AddDbLogger(this ILoggerFactory loggerFactory, DbLoggerOptions options)
         {
             loggerFactory.AddProvider(new DbLoggerProvider(options));

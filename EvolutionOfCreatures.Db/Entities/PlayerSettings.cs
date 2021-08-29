@@ -12,15 +12,15 @@ namespace EvolutionOfCreatures.Db.Entities
         public Guid PlayerId { get; set; }
 
 
-        /// <summary> Уровень ошибок которые отправлять на сервер с устройств игрока </summary>
+        /// <summary> The level of errors that are sent to the server from the player's devices. </summary>
         public PlayerLogLevel LogLevel { get; set; }
 
 
-        /// <summary> Запасные урлы по которым подключаться к беку </summary>
+        /// <summary> Fallback URLs to connect to the backend </summary>
         public string[] FallbackUrls => DefaultFallbackUrls;
 
 
-        /// <summary> Если текущая версия API (зашитая константа GameWebClient.ApiVersion) меньше чем указанная тут, то потребует обновления </summary>
+        /// <summary> If the current version of the client API is less than the one specified here, then the client will need to be updated </summary>
         public int MinApiVersion => MinApiVersionForEveryone;
 
 

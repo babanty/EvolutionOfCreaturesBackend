@@ -5,8 +5,8 @@
         public string ConnectionString { get; set; }
 
         /// <summary> 
-        /// Автоматически ли накатывать миграции на базу данных при старте приложения. Накатаывает только новые миграции,
-        /// а если БД обновлять не надо, то ни чего не делает
+        /// Whether to update the database automatically when the application starts. 
+        /// It rolls only new migrations, and if the database does not need to be updated, then it does nothing.
         /// </summary>
         public bool AutoDatabaseUpdate { get; set; } = true;
     }
