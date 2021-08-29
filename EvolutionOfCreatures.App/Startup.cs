@@ -12,6 +12,8 @@ using Infrastructure.HostExtensions.ServiceCollectionExtensions.DatabaseExtensio
 using EvolutionOfCreatures.Logic.Accounts;
 using EvolutionOfCreatures.Logic.Players;
 using FluentValidation;
+using Infrastructure.HostExtensions.Filters;
+
 
 namespace EvolutionOfCreatures.App
 {
@@ -26,20 +28,29 @@ namespace EvolutionOfCreatures.App
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers(options =>
+            {
+                options.Filters.Add<ValidationExceptionFilter>();
+                options.Filters.Add<NotFoundExceptionFilter>();
+            }).AddNewtonsoftJson();
+
+
             services.AddSignalR(hubOptions =>
             {
                 hubOptions.EnableDetailedErrors = true;
                 hubOptions.MaximumReceiveMessageSize = MaximumReceiveMessageSize; 
             }).AddJsonProtocol();
 
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddDbLogger("Logging:DbLogger");
 
+
             services.AddDb<EvolutionOfCreaturesContext>(Configuration.GetSection("EvolutionOfCreaturesContext"));
+
 
             services.AddTransient<IValidator<CreateAccountRequest>, CreateAccountRequestValidator>();
             services.AddTransient<IValidator<CreatePlayerRequest>, CreatePlayerRequestValidator>();
