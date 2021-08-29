@@ -43,6 +43,7 @@ namespace EvolutionOfCreatures.Logic.Players
                     Id = playerId,
                     CreatedAt = DateTime.UtcNow,
                     AccountId = request.AccountId,
+                    Name = request.PlayerName,
                     Rating = DefaultPlayerRating,
                     PlayerSettings = playerSettings,
                     PlayerStatistics = playerStatistics,

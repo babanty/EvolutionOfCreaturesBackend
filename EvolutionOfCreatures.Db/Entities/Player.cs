@@ -12,6 +12,8 @@ namespace EvolutionOfCreatures.Db.Entities
 
         public Guid AccountId { get; set; }
 
+        public string Name { get; set; }
+
         public int Rating { get; set; }
 
         public PlayerSettings PlayerSettings { get; set; }
