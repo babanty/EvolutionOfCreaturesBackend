@@ -7,6 +7,7 @@
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.90" />
     <PackageReference Include="DeepCopy" Version="1.0.3" />
+    <PackageReference Include="FluentValidation" Version="10.3.3" />
     <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.2" />

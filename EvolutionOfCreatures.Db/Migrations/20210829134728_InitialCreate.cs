@@ -27,6 +27,7 @@ namespace EvolutionOfCreatures.Db.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Rating = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

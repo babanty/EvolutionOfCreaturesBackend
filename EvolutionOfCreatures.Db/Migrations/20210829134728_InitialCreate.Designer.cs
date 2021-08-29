@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EvolutionOfCreatures.Db.Migrations
 {
     [DbContext(typeof(EvolutionOfCreaturesContext))]
-    [Migration("20210829111002_InitialCreate")]
+    [Migration("20210829134728_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,6 +49,9 @@ namespace EvolutionOfCreatures.Db.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Rating")
                         .HasColumnType("int");

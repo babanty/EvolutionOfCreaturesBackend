@@ -5,15 +5,17 @@ VisualStudioVersion = 16.0.31321.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{AF02F5FC-FC06-44A4-8CF8-CF752D69DFE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.HostExtensions", "Infrastructure.HostExtensions\Infrastructure.HostExtensions.csproj", "{E12CFFA6-318B-4E28-81BE-4AE663500253}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.HostExtensions", "Infrastructure.HostExtensions\Infrastructure.HostExtensions.csproj", "{E12CFFA6-318B-4E28-81BE-4AE663500253}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Tools", "Infrastructure.Tools\Infrastructure.Tools.csproj", "{42FAC57E-758B-4341-B8C5-1F75FB5523DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.Tools", "Infrastructure.Tools\Infrastructure.Tools.csproj", "{42FAC57E-758B-4341-B8C5-1F75FB5523DC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EvolutionOfCreatures.App", "EvolutionOfCreatures.App\EvolutionOfCreatures.App.csproj", "{23E4F331-849F-45BB-9462-DC2C65594D95}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionOfCreatures.Db", "EvolutionOfCreatures.Db\EvolutionOfCreatures.Db.csproj", "{67997167-494C-48F7-A432-693CDCD5339F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EvolutionOfCreatures.Db", "EvolutionOfCreatures.Db\EvolutionOfCreatures.Db.csproj", "{67997167-494C-48F7-A432-693CDCD5339F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionOfCreatures.Logic", "EvolutionOfCreatures.Logic\EvolutionOfCreatures.Logic.csproj", "{E9BACD04-4C61-411F-BCA0-4A14AF046B14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EvolutionOfCreatures.Logic", "EvolutionOfCreatures.Logic\EvolutionOfCreatures.Logic.csproj", "{E9BACD04-4C61-411F-BCA0-4A14AF046B14}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionOfCreatures.Logic.Tests", "EvolutionOfCreatures.Logic.Tests\EvolutionOfCreatures.Logic.Tests.csproj", "{96AA19A6-F25D-4898-8251-52013911D7F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{E9BACD04-4C61-411F-BCA0-4A14AF046B14}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9BACD04-4C61-411F-BCA0-4A14AF046B14}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9BACD04-4C61-411F-BCA0-4A14AF046B14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96AA19A6-F25D-4898-8251-52013911D7F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96AA19A6-F25D-4898-8251-52013911D7F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96AA19A6-F25D-4898-8251-52013911D7F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96AA19A6-F25D-4898-8251-52013911D7F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,8 +1,9 @@
 ﻿using FluentValidation;
+using Infrastructure.Tools.Validations;
 
 namespace EvolutionOfCreatures.Logic.Accounts
 {
-    public class CreateAccountRequestValidator : AbstractValidator<CreateAccountRequest>
+    public class CreateAccountRequestValidator : NotNullEntityValidator<CreateAccountRequest>
     {
         public CreateAccountRequestValidator()
         {

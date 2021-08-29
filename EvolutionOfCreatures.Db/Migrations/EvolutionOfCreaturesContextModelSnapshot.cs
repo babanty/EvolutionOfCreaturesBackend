@@ -48,6 +48,9 @@ namespace EvolutionOfCreatures.Db.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
