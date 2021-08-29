@@ -1,29 +1,28 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using EvolutionOfCreatures.Logic.Accounts;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using EvolutionOfCreatures.Logic.Tests.TestTools;
 using EvolutionOfCreatures.Db;
 using EvolutionOfCreatures.Logic.Players;
 using Moq;
 using System.Threading.Tasks;
 using EvolutionOfCreatures.Db.Entities;
+using AutoMapper;
 
 namespace EvolutionOfCreatures.Logic.Accounts.Tests
 {
     [TestClass()]
     public class AccountManager__Create
     {
+
         [TestMethod()]
         public async Task Create__ValidCreateResult__ResultOk()
         {
             // Arrange
-            var entityManager = GetNewAccountManager(new CreatePlayerRequest());
             var createAccountRequest = new CreateAccountRequest()
             {
                 Player = new CreatePlayerRequest() { PlayerName = "stub" }
             };
+            var entityManager = GetNewAccountManager(createAccountRequest.Player);
 
             // Act
             var newEntity = await entityManager.Create(createAccountRequest);
@@ -42,8 +41,13 @@ namespace EvolutionOfCreatures.Logic.Accounts.Tests
                     new EvolutionOfCreaturesContext(DbContextUtilities.GetInMemoryDbOptions<EvolutionOfCreaturesContext>());
 
 
-        private IAccountManager GetNewAccountManager(CreatePlayerRequest createPlayerRequest) => 
-                    new AccountManager(GetPlayerManagerMock(createPlayerRequest), GetNewDb(), new CreateAccountRequestValidator());
+        private IAccountManager GetNewAccountManager(CreatePlayerRequest createPlayerRequest)
+        {
+            return new AccountManager(GetPlayerManagerMock(createPlayerRequest),
+                                      GetNewDb(),
+                                      new CreateAccountRequestValidator(),
+                                      GetMapper());
+        }
 
 
         private IPlayerManager GetPlayerManagerMock(CreatePlayerRequest createPlayerRequest)
@@ -60,6 +64,16 @@ namespace EvolutionOfCreatures.Logic.Accounts.Tests
                             }));
 
             return mock.Object;
+        }
+
+
+        private IMapper GetMapper()
+        {
+            return new Mapper(new MapperConfiguration(c =>
+            {
+                c.AddProfile(new AccountMappingProfile());
+                c.AddProfile(new PlayerMappingProfile());
+            }));
         }
     }
 }

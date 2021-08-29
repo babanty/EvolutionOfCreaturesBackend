@@ -22,11 +22,13 @@ namespace EvolutionOfCreatures.Logic.Accounts
 
         public AccountManager(IPlayerManager playerManager,
                               EvolutionOfCreaturesContext dbContext,
-                              IValidator<CreateAccountRequest> validatorCreateRequest)
+                              IValidator<CreateAccountRequest> validatorCreateRequest,
+                              IMapper mapper)
         {
             _playerManager = playerManager;
             _dbContext = dbContext;
             _validatorCreateRequest = validatorCreateRequest;
+            _mapper = mapper;
         }
 
 
@@ -58,6 +60,7 @@ namespace EvolutionOfCreatures.Logic.Accounts
             entity.Player = player;
 
             _dbContext.Add(entity);
+            await _dbContext.SaveChangesAsync();
 
             return _mapper.Map<AccountDto>(entity);
         }
