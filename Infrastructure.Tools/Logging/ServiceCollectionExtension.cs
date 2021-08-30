@@ -1,5 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Infrastructure.Tools.ServiceCollectionExtensions;
+﻿using Infrastructure.Tools.ServiceCollectionExtensions;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Tools.Logging

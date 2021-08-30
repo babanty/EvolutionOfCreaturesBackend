@@ -1,15 +1,13 @@
-﻿using EvolutionOfCreatures.Logic.Accounts;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using EvolutionOfCreatures.Logic.Tests.TestTools;
+﻿using AutoMapper;
 using EvolutionOfCreatures.Db;
-using EvolutionOfCreatures.Logic.Players;
-using Moq;
-using System.Threading.Tasks;
 using EvolutionOfCreatures.Db.Entities;
-using AutoMapper;
-using Infrastructure.Tools.Exceptions;
+using EvolutionOfCreatures.Logic.Players;
+using EvolutionOfCreatures.Logic.Tests.TestTools;
 using FluentValidation;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using System;
+using System.Threading.Tasks;
 
 namespace EvolutionOfCreatures.Logic.Accounts.Tests
 {
