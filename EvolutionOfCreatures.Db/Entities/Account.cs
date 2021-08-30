@@ -11,8 +11,8 @@ namespace EvolutionOfCreatures.Db.Entities
         
         public DateTime CreatedAt { get; set; }
 
-        
-        /// <summary> Id транзакций покупок </summary>
+
+        /// <summary> Trade transaction IDs </summary>
         public ICollection<string> TransactionIds { get; set; }
 
         

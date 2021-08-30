@@ -1,18 +1,18 @@
+using EvolutionOfCreatures.App.Hubs;
+using EvolutionOfCreatures.Db;
+using EvolutionOfCreatures.Logic.Accounts;
+using EvolutionOfCreatures.Logic.Players;
+using FluentValidation;
+using Infrastructure.HostExtensions.Filters;
+using Infrastructure.HostExtensions.ServiceCollectionExtensions.DatabaseExtension;
+using Infrastructure.Tools.Logging;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
 using Microsoft.Extensions.Logging;
-using Infrastructure.Tools.Logging;
-using EvolutionOfCreatures.App.Hubs;
-using EvolutionOfCreatures.Db;
-using Infrastructure.HostExtensions.ServiceCollectionExtensions.DatabaseExtension;
-using EvolutionOfCreatures.Logic.Accounts;
-using EvolutionOfCreatures.Logic.Players;
-using FluentValidation;
-using Infrastructure.HostExtensions.Filters;
+using System;
 using System.Linq;
 
 namespace EvolutionOfCreatures.App

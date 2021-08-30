@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using EvolutionOfCreatures.Db.Entities;
+﻿using EvolutionOfCreatures.Db.Entities;
+using System.Threading.Tasks;
 
 namespace EvolutionOfCreatures.Logic.Players
 {

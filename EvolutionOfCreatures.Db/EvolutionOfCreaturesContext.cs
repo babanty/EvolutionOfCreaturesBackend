@@ -23,14 +23,14 @@ namespace EvolutionOfCreatures.Db
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            // нужно чтобы мочь сохранять массив
+            // this is necessary to save the array in MS SQL.
             builder.Entity<Account>()
                        .Property(t => t.TransactionIds)
                        .HasConversion(
                             m => JsonConvert.SerializeObject(m),
                             m => JsonConvert.DeserializeObject<string[]>(m));
 
-            // игнорить т.к. они пока что захардкоженные
+            // these are constant properties
             builder.Entity<PlayerSettings>().Ignore(c => c.MinApiVersion)
                                             .Ignore(c => c.FallbackUrls);
         }

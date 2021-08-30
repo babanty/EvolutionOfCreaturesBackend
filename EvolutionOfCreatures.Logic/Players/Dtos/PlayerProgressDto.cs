@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EvolutionOfCreatures.Logic.Players.Dtos
+﻿namespace EvolutionOfCreatures.Logic.Players.Dtos
 {
     public class PlayerProgressDto
     {

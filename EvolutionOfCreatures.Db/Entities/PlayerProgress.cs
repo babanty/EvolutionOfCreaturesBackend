@@ -14,7 +14,7 @@ namespace EvolutionOfCreatures.Db.Entities
         public Guid PlayerId { get; set; }
 
 
-        /// <summary> Максимальный уровень до которого дошел игрок </summary>
+        /// <summary> The maximum level reached by the player </summary>
         public int MaxLevel { get; set; }
     }
 }

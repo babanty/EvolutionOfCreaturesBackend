@@ -2,7 +2,7 @@
 {
     public interface ICanBeEditedOffline
     {
-        /// <summary> Всякий раз при изменении версия инкриментируется </summary>
+        /// <summary> When class data changes, the field is incremented </summary>
         int Version { get; set; }
     }
 }

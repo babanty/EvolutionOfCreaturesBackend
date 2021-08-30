@@ -30,7 +30,7 @@ namespace EvolutionOfCreatures.Logic.Players
 
             var playerId = Guid.NewGuid();
 
-            // создаем 4 связанных сущности, для этого используем транзакцию на случай если пойдет что-то не так, то не оставалось мусора
+            // we create 4 related entities, for this we use a transaction in case something goes wrong, then there will be no garbage left
             Player entity;
             using (var transaction = _dbContext.Database.BeginTransaction())
             {
