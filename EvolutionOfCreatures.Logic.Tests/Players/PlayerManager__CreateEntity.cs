@@ -8,6 +8,7 @@ using AutoMapper;
 using EvolutionOfCreatures.Db;
 using EvolutionOfCreatures.Logic.Tests.TestTools;
 using EvolutionOfCreatures.Db.Entities;
+using FluentValidation;
 
 namespace EvolutionOfCreatures.Logic.Players.Tests
 {
@@ -39,6 +40,78 @@ namespace EvolutionOfCreatures.Logic.Players.Tests
         }
 
 
+        [TestMethod()]
+        public async Task Create__CreateRequestIsNull__ValidationException()
+        {
+            // Arrange
+            CreatePlayerRequest createPlayerRequest = null;
+            var entityManager = GetNewPlayerManager(GetNewInMemoryDb());
+
+            // Act
+            async Task action() => await entityManager.CreateEntity(createPlayerRequest);
+
+            // Assert
+            await Assert.ThrowsExceptionAsync<ValidationException>(action);
+        }
+
+
+        [TestMethod()]
+        public async Task Create__InvalidCreateRequestWithoutName__ValidationException()
+        {
+            // Arrange
+            var createPlayerRequest = new CreatePlayerRequest()
+            {
+                AccountId = Guid.NewGuid(),
+                PlayerName = null
+            };
+            var entityManager = GetNewPlayerManager(GetNewInMemoryDb());
+
+            // Act
+            async Task action() => await entityManager.CreateEntity(createPlayerRequest);
+
+            // Assert
+            await Assert.ThrowsExceptionAsync<ValidationException>(action);
+        }
+
+
+        [TestMethod()]
+        public async Task Create__InvalidCreateRequestWithInvalidName__ValidationException()
+        {
+            // Arrange
+            var createPlayerRequest = new CreatePlayerRequest()
+            {
+                AccountId = Guid.NewGuid(),
+                PlayerName = "a"
+            };
+            var entityManager = GetNewPlayerManager(GetNewInMemoryDb());
+
+            // Act
+            async Task action() => await entityManager.CreateEntity(createPlayerRequest);
+
+            // Assert
+            await Assert.ThrowsExceptionAsync<ValidationException>(action);
+        }
+
+
+        [TestMethod()]
+        public async Task Create__InvalidCreateRequestWithoutAccountId__ValidationException()
+        {
+            // Arrange
+            var createPlayerRequest = new CreatePlayerRequest()
+            {
+                AccountId = Guid.Empty,
+                PlayerName = "stub"
+            };
+            var entityManager = GetNewPlayerManager(GetNewInMemoryDb());
+
+            // Act
+            async Task action() => await entityManager.CreateEntity(createPlayerRequest);
+
+            // Assert
+            await Assert.ThrowsExceptionAsync<ValidationException>(action);
+        }
+
+
 
         private PlayerManager GetNewPlayerManager(EvolutionOfCreaturesContext db) => new PlayerManager(db, new CreatePlayerRequestValidator());
 
@@ -51,6 +124,9 @@ namespace EvolutionOfCreatures.Logic.Players.Tests
 
             return new MsSqlDbContextWrapper<EvolutionOfCreaturesContext>() { Instance = dbContext };
         }
+
+
+        private EvolutionOfCreaturesContext GetNewInMemoryDb() => DbContextUtilities.GetEfCoreInMemoryDb<EvolutionOfCreaturesContext>();
 
 
         private void DbDataInitialization(EvolutionOfCreaturesContext dbContext, Guid accountId)

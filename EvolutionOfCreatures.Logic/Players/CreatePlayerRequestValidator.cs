@@ -1,8 +1,9 @@
 ﻿using FluentValidation;
+using Infrastructure.Tools.Validations;
 
 namespace EvolutionOfCreatures.Logic.Players
 {
-    public class CreatePlayerRequestValidator : AbstractValidator<CreatePlayerRequest>
+    public class CreatePlayerRequestValidator : NotNullEntityValidator<CreatePlayerRequest>
     {
         public CreatePlayerRequestValidator()
         {
