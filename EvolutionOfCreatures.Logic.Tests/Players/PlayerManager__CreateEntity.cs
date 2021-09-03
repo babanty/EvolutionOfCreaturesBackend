@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using EvolutionOfCreatures.Db;
 using EvolutionOfCreatures.Logic.Tests.TestTools;
+using EvolutionOfCreatures.Db.Entities;
 
 namespace EvolutionOfCreatures.Logic.Players.Tests
 {
@@ -20,9 +21,8 @@ namespace EvolutionOfCreatures.Logic.Players.Tests
             var accountId = Guid.NewGuid();
             var playerName = "stub";
             var createPlayerRequest = new CreatePlayerRequest() { AccountId = accountId, PlayerName = playerName };
-            using var msSqlDbWrapper = GetNewMsSqlDbWrapper();
+            using var msSqlDbWrapper = GetNewMsSqlDbWrapper(accountId);
             var entityManager = GetNewPlayerManager(msSqlDbWrapper.Instance);
-
 
             // Act
             var newEntity = await entityManager.CreateEntity(createPlayerRequest);
@@ -43,11 +43,20 @@ namespace EvolutionOfCreatures.Logic.Players.Tests
         private PlayerManager GetNewPlayerManager(EvolutionOfCreaturesContext db) => new PlayerManager(db, new CreatePlayerRequestValidator());
 
 
-        private MsSqlDbContextWrapper<EvolutionOfCreaturesContext> GetNewMsSqlDbWrapper()
+        private MsSqlDbContextWrapper<EvolutionOfCreaturesContext> GetNewMsSqlDbWrapper(Guid accountId)
         {
             var dbContext = DbContextUtilities.GetMsSqlTestDb<EvolutionOfCreaturesContext>();
 
+            DbDataInitialization(dbContext, accountId);
+
             return new MsSqlDbContextWrapper<EvolutionOfCreaturesContext>() { Instance = dbContext };
+        }
+
+
+        private void DbDataInitialization(EvolutionOfCreaturesContext dbContext, Guid accountId)
+        {
+            dbContext.Add(new Account() { Id = accountId });
+            dbContext.SaveChanges();
         }
     }
 }

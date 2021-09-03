@@ -34,23 +34,22 @@ namespace EvolutionOfCreatures.Logic.Players
             Player entity;
             using (var transaction = _dbContext.Database.BeginTransaction())
             {
-                var playerSettings = await CreatePlayerSettings(playerId);
-                var playerStatistics = await CreatePlayerStatistics(playerId);
-                var playerProgress = await CreatePlayerProgress(playerId);
-
                 entity = new Player
                 {
                     Id = playerId,
                     CreatedAt = DateTime.UtcNow,
                     AccountId = request.AccountId,
                     Name = request.PlayerName,
-                    Rating = DefaultPlayerRating,
-                    PlayerSettings = playerSettings,
-                    PlayerStatistics = playerStatistics,
-                    PlayerProgress = playerProgress
+                    Rating = DefaultPlayerRating
                 };
 
                 _dbContext.Add(entity);
+
+                await _dbContext.SaveChangesAsync();
+
+                entity.PlayerSettings = await CreatePlayerSettings(playerId);
+                entity.PlayerStatistics = await CreatePlayerStatistics(playerId);
+                entity.PlayerProgress = await CreatePlayerProgress(playerId);
 
                 await _dbContext.SaveChangesAsync();
 
