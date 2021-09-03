@@ -74,8 +74,7 @@ namespace EvolutionOfCreatures.Logic.Accounts.Tests
         }
 
 
-        private EvolutionOfCreaturesContext GetNewDb() =>
-            new EvolutionOfCreaturesContext(DbContextUtilities.GetInMemoryDbOptions<EvolutionOfCreaturesContext>());
+        private EvolutionOfCreaturesContext GetNewDb() => DbContextUtilities.GetEfCoreInMemoryDb<EvolutionOfCreaturesContext>();
 
 
         private IPlayerManager GetPlayerManagerMock()

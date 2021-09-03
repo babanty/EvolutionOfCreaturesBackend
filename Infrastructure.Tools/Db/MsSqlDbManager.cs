@@ -98,6 +98,26 @@ namespace Infrastructure.Tools.Db
         }
 
 
+        public static void DeleteDb(string connectionString)
+        {
+            var dbName = GetDbName(connectionString);
+
+            var connectionStringWithoutDb = GetConnectionStringWithoutDb(connectionString);
+
+            using (IDbConnection db = new SqlConnection(connectionStringWithoutDb))
+            {
+                var createDbQuery = @$"USE [{dbName}];
+
+                                       ALTER DATABASE [{dbName}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+                                       USE [tempdb];
+
+                                       DROP DATABASE [{dbName}];";
+
+                db.Execute(createDbQuery);
+            }
+        }
+
+
         public static string GetDbName(string connectionString)
         {
             Check.NotNullOrEmpty(connectionString, nameof(connectionString));
